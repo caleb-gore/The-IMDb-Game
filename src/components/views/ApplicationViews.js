@@ -1,7 +1,8 @@
+import { Route, Routes } from "react-router-dom"
+
 export const ApplicationViews = () => {
-	return <>
-		<h1 className="title--main">Honey Rae Repairs</h1>
-		<div>Your one-stop shop for repairing your tech</div>
-	</>
+	return <Routes>
+		<Route path="" element={<></>}></Route>
+	</Routes>
 }
 

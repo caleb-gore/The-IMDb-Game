@@ -5,22 +5,39 @@ import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import "./IMDbGame.css"
+import { Welcome } from "./Welcome"
 
 
 export const IMDbGame = () => {
-	return <Routes>
-		<Route path="/login" element={<Login />} />
-		<Route path="/register" element={<Register />} />
+	return (
+		<Routes>
+			<Route path="/" element={<Welcome />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/register" element={<Register />} />
+			<Route path="/home" element={
+				<Authorized>
+					<>
+						<NavBar />
+						<ApplicationViews />
+					</>
+				</Authorized>} />
 
-		<Route path="*" element={
-			<Authorized>
-				<>
-					<NavBar />
-					<ApplicationViews />
-				</>
-			</Authorized>
+				
 
-		} />
-	</Routes>
+		</Routes>
+	)
+	
+	
+	
 }
 
+{/* <Authorized>
+	<>
+		<NavBar />
+		<ApplicationViews />
+	</>
+</Authorized> */}
+
+{/* <Routes>
+
+</Routes> */}
