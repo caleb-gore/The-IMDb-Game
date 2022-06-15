@@ -8,13 +8,14 @@ import "./IMDbGame.css"
 import { Welcome } from "./Welcome"
 
 
+
 export const IMDbGame = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<Welcome />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
-			<Route path="/home" element={
+			<Route path="*" element={
 				<Authorized>
 					<>
 						<NavBar />

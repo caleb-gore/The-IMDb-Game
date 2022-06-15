@@ -8,7 +8,7 @@ import "./Login.css"
 /* component */
 export const Login = () => {
     /* use state */
-    const [email, set] = useState("")
+    const [email, set] = useState("j.sparrow@pirates.com")
     
     /* navigate */
     const navigate = useNavigate()
@@ -26,7 +26,7 @@ export const Login = () => {
                         id: user.id,
                     }))
 
-                    navigate("/home")
+                    navigate("/dashboard")
                 }
                 else {
                     window.alert("Invalid login")

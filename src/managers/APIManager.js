@@ -35,3 +35,13 @@ export const searchMovies = (searchTerm) => {
     return fetch(`https://imdb-api.com/en/API/SearchMovie/k_xujmt7ax/${searchTerm}`)
     .then((response) => response.json())
 }
+
+export const getLists = () => {
+    return fetch(`http://localhost:8088/lists`)
+    .then((response) => response.json())
+}
+
+export const getSelectedList = (listId) => {
+    return fetch(`https://imdb-api.com/en/API/IMDbList/k_xujmt7ax/${listId}`)
+    .then((response) => response.json())
+}
