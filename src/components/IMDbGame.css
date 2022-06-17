@@ -15,10 +15,15 @@ textarea {
 }
 
 body {
-    padding: 0 3rem;
+  padding: 0 3rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Patua One", serif;
   letter-spacing: 2px;
 }
@@ -31,3 +36,19 @@ p {
   margin-block-end: 0;
 }
 
+.game__container {
+  display: flex;
+}
+
+.game__item {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.actor {
+  flex-basis: 33%;
+}
+
+.game {
+  flex-basis: 100%;
+}

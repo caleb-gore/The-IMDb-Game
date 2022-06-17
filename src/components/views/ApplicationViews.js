@@ -1,11 +1,10 @@
 import { Route, Routes } from "react-router-dom"
-import { Categories } from "../categories/Categories"
 import { Dashboard } from "../Dashboard"
 import { Modes } from "../modes/Modes"
 import { Rules } from "../Rules"
-import { Game } from "../games/Game"
 import { CategoryContainer } from "../categories/CategoryContainer"
 import { ReadyToPlay } from "../categories/ReadyToPlay"
+import { GameContainer } from "../games/GameContainer"
 
 export const ApplicationViews = () => {
 	
@@ -14,7 +13,7 @@ export const ApplicationViews = () => {
 		<Route path="/rules" element={<Rules />} />
 		<Route path="/dashboard" element={<Dashboard />} />
 		<Route path="/categories" element={<CategoryContainer/>} />
-		<Route path="/game" element={<Game/>} />
+		<Route path="/game" element={<GameContainer />} />
 		<Route path="/ready" element={<ReadyToPlay/>} />
 		
 		
