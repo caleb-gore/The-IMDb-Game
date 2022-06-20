@@ -17,20 +17,19 @@ export const NavBar = () => {
   }, []);
 
   const avatarImage = () => {
-    if (avatars.length>0) {
-        const userAvatar = avatars.find(
-            (avatar) => avatar.id === currentUser.avatarId
-          );
-          console.log(userAvatar.image);
-          return userAvatar.image
+    if (avatars.length > 0) {
+      const userAvatar = avatars.find(
+        (avatar) => avatar.id === currentUser.avatarId
+      );
+      return userAvatar.image;
     }
-  }
+  };
 
   return (
     <ul className="navbar">
       <li className="navbar__item active">
         <Link className="navbar__link" to="/profile">
-            <img src={avatarImage()} height="50rem"/>
+          <img src={avatarImage()} height="50rem" />
           {currentUser.userName}
         </Link>
       </li>

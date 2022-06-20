@@ -1,20 +1,26 @@
-import { useEffect, useState } from "react"
-import { Categories } from "./Categories"
-import { Category } from "./Category"
+/* imports */
+import { useEffect, useState } from "react";
+import { Categories } from "./Categories";
+import { Category } from "./Category";
 
+/* component */
 export const CategoryContainer = () => {
-    const [selectedCategory, updateSelectedCategory] = useState({})
-    
-    useEffect(
-        () => {
-            console.log(selectedCategory);
-        }, [selectedCategory]
-    )
-    
-    return (
-        <>
-            <Categories setCategory={updateSelectedCategory}/>
-            <Category category={selectedCategory}/>
-        </>
-    )
-}
+  const [categoryId, setCategoryId] = useState("");
+  const [selectedCategory, updateSelectedCategory] = useState({});
+  const [isSelected, importSelected] = useState(false);
+
+  return (
+    <>
+      <Categories
+        setCategory={updateSelectedCategory}
+        setCategoryId={setCategoryId}
+        exportSelected={importSelected}
+      />
+      <Category
+        category={selectedCategory}
+        categoryId={categoryId}
+        isSelected={isSelected}
+      />
+    </>
+  );
+};

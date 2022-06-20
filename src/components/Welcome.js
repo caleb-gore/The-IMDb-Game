@@ -1,28 +1,38 @@
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+/* import */
+import { useNavigate } from "react-router-dom";
 
+/* component */
 export const Welcome = () => {
+  /* navigate */
   const navigate = useNavigate();
 
+  /* return */
   return (
     <>
+      {/* title */}
       <nav>
         <h1>The IMDb Game</h1>
       </nav>
 
+      {/* buttons */}
       <section>
-        <button type="button" onClick={() => navigate("/register")}>GET STARTED</button>
-        <button type="button" onClick={() => navigate("/login")}>I ALREADY HAVE AN ACCOUNT</button>
+        <button type="button" onClick={() => navigate("/register")}>
+          GET STARTED
+        </button>
+        <button type="button" onClick={() => navigate("/login")}>
+          I ALREADY HAVE AN ACCOUNT
+        </button>
       </section>
 
+      {/* subtitle */}
       <hr />
       <h3>What is The IMDb Game?</h3>
 
+      {/* description */}
       <p>
         The IMDb Game is an interactive movie trivia game inspired by the
-        podcast "<a href="http://fightinginthewarroom.com/THOB/">
-          This Had Oscar Buzz
-        </a>"
+        podcast "
+        <a href="http://fightinginthewarroom.com/THOB/">This Had Oscar Buzz</a>"
         Created by Joe Reid and Chris Feil. In their words:
       </p>
       <blockquote>

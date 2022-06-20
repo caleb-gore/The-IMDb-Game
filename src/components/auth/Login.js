@@ -1,72 +1,76 @@
 /* imports */
-import React, { useState } from "react"
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { getUserFromEmail } from "../../managers/APIManager";
-import "./Login.css"
+import "./Login.css";
 
 /* component */
 export const Login = () => {
-    /* use state */
-    const [email, set] = useState("j.sparrow@pirates.com")
-    
-    /* navigate */
-    const navigate = useNavigate()
+  /* use state */
+  const [email, set] = useState("j.sparrow@pirates.com");
 
-    /* function called on submit */
-    const handleLogin = (e) => {
-        e.preventDefault()
+  /* navigate */
+  const navigate = useNavigate();
 
-        return getUserFromEmail(email)
-            .then(foundUsers => {
-                /* check if user exists in database */
-                if (foundUsers.length === 1) {
-                    const user = foundUsers[0]
-                    localStorage.setItem("imdb_user", JSON.stringify({
-                        id: user.id,
-                    }))
+  /* function called on submit */
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-                    navigate("/dashboard")
-                }
-                else {
-                    window.alert("Invalid login")
-                }
+    return getUserFromEmail(email /* line 11 */) /* API line 31 */
+      .then((foundUsers) => {
+        /* check if user exists in database */
+        if (foundUsers.length === 1) {
+          const user = foundUsers[0];
+          localStorage.setItem(
+            "imdb_user",
+            JSON.stringify({
+              id: user.id,
             })
-    }
+          );
 
-    /* JSX */
-    return (
-        <main className="container--login">
-            <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1>The IMDb Game</h1>
-                    <h2>Please sign in</h2>
-          
-                    {/* Email Address */}          
-                    <fieldset>
-                        <label htmlFor="inputEmail"> Email address </label>
-                        <input type="email"
-                            value={email}
-                            onChange={evt => set(evt.target.value)}
-                            className="form-control"
-                            placeholder="marilynmonroe@hollywood.star"
-                            required autoFocus />
-                    </fieldset>
+          navigate("/dashboard");
+        } else {
+          window.alert("Invalid login");
+        }
+      });
+  };
 
-                    {/* Submit Button */}
-                    <fieldset>
-                        <button type="submit">
-                            Sign in
-                        </button>
-                    </fieldset>
-                </form>
-            </section>
+  /* JSX */
+  return (
+    <main className="container--login">
+      {/* Form */}
+      <section>
+        <form className="form--login" onSubmit={handleLogin /* line 17 */}>
+          {/* Title */}
+          <h1>The IMDb Game</h1>
+          <h2>Please sign in</h2>
 
-            {/* Registration button */}
-            <section className="link--register">
-                <Link to="/register">Not a member yet?</Link>
-            </section>
-        </main>
-    )
-}
+          {/* Email Address */}
+          <fieldset>
+            <label htmlFor="inputEmail"> Email address </label>
+            <input
+              type="email"
+              value={email /* line 11 */}
+              onChange={(evt) => set(evt.target.value) /* line 11 */}
+              className="form-control"
+              placeholder="marilynmonroe@hollywood.star"
+              required
+              autoFocus
+            />
+          </fieldset>
 
+          {/* Submit Button */}
+          <fieldset>
+            <button type="submit">Sign in</button>
+          </fieldset>
+        </form>
+      </section>
+
+      {/* Registration button */}
+      <section className="link--register">
+        <Link to="/register">Not a member yet?</Link>
+      </section>
+    </main>
+  );
+};
