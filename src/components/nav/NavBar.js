@@ -21,7 +21,7 @@ export const NavBar = () => {
       const userAvatar = avatars.find(
         (avatar) => avatar.id === currentUser.avatarId
       );
-      return userAvatar.image;
+      return userAvatar?.image;
     }
   };
 
