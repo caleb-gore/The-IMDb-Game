@@ -2,31 +2,43 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getActor, getList, getUserGames } from "../../managers/APIManager";
 
-export const Actor = ({ listFromAPI, exportActor } /* { exportGame, exportActor } */) => {
-  const [actor, setActor] = useState(null);
+export const Actor = (
+  {
+    listFromAPI,
+    exportActor,
+    updateHintsUnlocked,
+  } /* { exportGame, exportActor } */
+) => {
+  const [actor, setActor] = useState(undefined);
 
   const randomActor = () => {
     const randomIndex = Math.floor(Math.random() * listFromAPI?.items?.length);
-    return listFromAPI.items[randomIndex];
+    return listFromAPI?.items[randomIndex];
   };
 
   useEffect(() => {
     setActor(randomActor());
   }, [listFromAPI]);
 
-  useEffect(
-    () => {
-      exportActor(actor)
-    }, [actor]
-  )
+  useEffect(() => {
+    exportActor(actor);
+  }, [actor]);
   return (
     <>
-      {actor === null ? (
+      {actor === undefined ? (
         <h1>LOADING...</h1>
       ) : (
         <section className="game__item actor">
           <h3>Actor: {actor.title}</h3>
           <img src={actor.image} height="200rem" alt="actor" />
+          <button
+            onClick={() => {
+              setActor(randomActor());
+              updateHintsUnlocked(false);
+            }}
+          >
+            Change Actor
+          </button>
         </section>
       )}
     </>

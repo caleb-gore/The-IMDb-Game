@@ -11,7 +11,7 @@ import { Category } from "./Category";
 export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
   /* useState, set categories from API to state */
   const [categories, setCategories] = useState([]);
-  const [chosenCategory, setChosenCategory] = useState(null);
+  const [chosenCategory, setChosenCategory] = useState(undefined);
   const showCategoryButtons = () => {
     return (
       <section>
@@ -42,7 +42,7 @@ export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
   return (
     <>
     {/* if categoryChosen is null, display category buttons, else display category element */}
-      {chosenCategory === null ? (
+      {chosenCategory === undefined ? (
         showCategoryButtons()
       ) : (
         <Category clearChosenCategory={setChosenCategory} chosenCategory={chosenCategory}/>

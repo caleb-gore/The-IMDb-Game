@@ -46,6 +46,7 @@ export const getCategories = () => {
   );
 };
 
+
 export const getList = (listId) => {
   return fetch(
     `https://imdb-api.com/en/API/IMDbList/k_xujmt7ax/${listId}`
@@ -79,7 +80,7 @@ export const putGame = (gameObject) => {
 
 export const getUserGames = (userId) => {
   return fetch(
-    `http://localhost:8088/games?_expand=category&_userId=${userId}`
+    `http://localhost:8088/games?_sort=id&_order=desc&_expand=category&userId=${userId}`
   ).then((response) => response.json());
 };
 export const getUserGamesWithCategory = (userId) => {
@@ -93,3 +94,11 @@ export const getProject = (projectId) => {
     `https://imdb-api.com/en/API/Title/k_xujmt7ax/${projectId}`
   ).then((response) => response.json());
 };
+
+export const getWinners = () => {
+  return fetch(`http://localhost:8088/winnerGifs`).then((response) => response.json())
+}
+
+export const getLosers = () => {
+  return fetch(`http://localhost:8088/loserGifs`).then((response) => response.json())
+}

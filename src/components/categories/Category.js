@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { getUserGames, postGame } from "../../managers/APIManager";
+import { getList, getUserGames, postGame } from "../../managers/APIManager";
+import { Game } from "../games/Game";
 
 export const Category = (
   {
@@ -8,33 +9,52 @@ export const Category = (
     chosenCategory,
   } /* { category, categoryId, isSelected } */
 ) => {
-  const navigate = useNavigate();
+  const [gameInProgress, updateGameInProgress] = useState(false);
+  const [gameState, setGameState] = useState(undefined);
+  const [listFromAPI, setListFromAPI] = useState(undefined);
 
   return (
     <>
-      {/* onclick, return to categories */}
-      <button
-        onClick={() => {
-          clearChosenCategory(null);
-        }}
-      >
-        go back
-      </button>
-      <h1>Category Is: {chosenCategory.name} </h1>
+      {gameInProgress ? (
+        <Game
+          gameState={gameState}
+          setGameState={setGameState}
+          listFromAPI={listFromAPI}
+          chosenCategory={chosenCategory}
+        />
+      ) : (
+        <>
+          {/* onclick, return to categories */}
+          <button
+            onClick={() => {
+              clearChosenCategory(undefined);
+            }}
+          >
+            go back
+          </button>
+          <h1>Category Is: {chosenCategory.name} </h1>
 
-      {/* create new game object, post object to API, navigate to game component */}
-      <button
-        onClick={() => {
-          const newGameObject = {
-            categoryId: chosenCategory.id,
-            userId: JSON.parse(localStorage.getItem("imdb_user")).id,
-            timestamp: Date.now(),
-          };
-          postGame(newGameObject).then(navigate("/game"));
-        }}
-      >
-        Let's Play!
-      </button>
+          {/* create new game object, save it to gameState, get list for current category, initiate game play */}
+          <button
+            onClick={() => {
+              const newGameObject = {
+                score: 0,
+                categoryId: chosenCategory.id,
+                userId: JSON.parse(localStorage.getItem("imdb_user")).id,
+                timestamp: Date.now(),
+                correctAnswers: 0,
+                incorrectAnswers: 0,
+              };
+              setGameState(newGameObject);
+              getList(chosenCategory.id)
+                .then(setListFromAPI)
+                .then(updateGameInProgress(true));
+            }}
+          >
+            Let's Play!
+          </button>
+        </>
+      )}
     </>
   );
 

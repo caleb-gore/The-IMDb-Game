@@ -1,28 +1,48 @@
-export const Hints = ({ game, setHintsEnabled, hintsEnabled }) => {
-  const hintText = () => {
-    if (game?.incorrectAnswers < 2) {
-      return (
-        <h3>Hints Unlock in {3 - game?.incorrectAnswers} wrong answers</h3>
-      );
-    } else {
-      return <h3>Hints Unlock in {3 - game?.incorrectAnswers} wrong answer</h3>;
-    }
-  };
-
-  const hintCheck = () => {
-    if (hintsEnabled) {
-      return "";
-    } else {
-      return (
+export const Hints = (
+  {
+    hintsUnlocked,
+    updateHintsUnlocked,
+  } /* { game, setHintsEnabled, hintsEnabled } */
+) => {
+  return (
+    <>
+      {hintsUnlocked ? (
+        ""
+      ) : (
         <button
           onClick={() => {
-            setHintsEnabled(true);
+            updateHintsUnlocked(true);
           }}
         >
-          Unlock Hints
+          UNLOCK HINTS
         </button>
-      );
-    }
-  };
-  return <>{game?.incorrectAnswers < 3 ? hintText() : hintCheck()}</>;
+      )}
+    </>
+  );
+  // const hintText = () => {
+  //   if (game?.incorrectAnswers < 2) {
+  //     return (
+  //       <h3>Hints Unlock in {3 - game?.incorrectAnswers} wrong answers</h3>
+  //     );
+  //   } else {
+  //     return <h3>Hints Unlock in {3 - game?.incorrectAnswers} wrong answer</h3>;
+  //   }
+  // };
+
+  // const hintCheck = () => {
+  //   if (hintsEnabled) {
+  //     return "";
+  //   } else {
+  //     return (
+  //       <button
+  //         onClick={() => {
+  //           setHintsEnabled(true);
+  //         }}
+  //       >
+  //         Unlock Hints
+  //       </button>
+  //     );
+  //   }
+  // };
+  // return <>{game?.incorrectAnswers < 3 ? hintText() : hintCheck()}</>;
 };

@@ -4,41 +4,73 @@ import {
   getList,
   getProject,
   getUserGames,
+  postGame,
   putGame,
 } from "../../managers/APIManager"; //fetch movie objects from API
 import { Actor } from "./Actor";
 import { GameBoard } from "./GameBoard";
+import { GameOver } from "./GameOver";
 import { Hints } from "./Hints";
 
-export const Game =
-  (/* { game, actor, exportGameState, changeActorOutcome } */) => {
-    const [gameState, setGameState] = useState(null);
-    const [listFromAPI, setListFromAPI] = useState(null);
-    const [actorObjectFromList, exportActor] = useState(null)
+export const Game = (
+  {
+    gameState,
+    setGameState,
+    listFromAPI,
+    chosenCategory,
+  } /* { game, actor, exportGameState, changeActorOutcome } */
+) => {
+  const navigate = useNavigate();
+  const [actorObjectFromList, exportActor] = useState(undefined);
+  const [gameOver, updateGameOver] = useState(false);
+  const [hintsUnlocked, updateHintsUnlocked] = useState(false)
 
-    useEffect(() => {
-      getUserGames(JSON.parse(localStorage.getItem("imdb_user")).id).then(
-        (data) => {
-          setGameState(data[data.length - 1]);
-          getList(data[data.length - 1].categoryId).then(setListFromAPI);
-        }
-      );
-    }, []);
 
+  /* update game state with actor id (from actor component) */
+  useEffect(() => {
+    if (actorObjectFromList !== undefined) {
+      const copy = { ...gameState };
+      copy.actorId = actorObjectFromList?.id;
+      setGameState(copy);
+    }
+  }, [actorObjectFromList]);
+
+  if (gameOver) {
+    return <GameOver gameState={gameState} />;
+  } else {
     return (
       <>
-        {
-        listFromAPI === null 
-        ? <h1>LOADING...</h1> 
-        : <>
-        <h2>Category: {gameState?.category?.name}</h2>
-        <section className="game__container">
-          <Actor listFromAPI={listFromAPI} exportActor={exportActor} />
-        <GameBoard actorObjectFromList={actorObjectFromList}/>
-          </section>
-        </>
-        }
-        
+        {/* display loading until listFromAPI is updated */}
+        {listFromAPI === undefined ? (
+          <h1>LOADING...</h1>
+        ) : (
+          <>
+            <h2>Category: {chosenCategory.name}</h2>
+            <h2>Score: {gameState.score}</h2>
+            <button
+              onClick={() => {
+                const copy = { ...gameState };
+                copy.outcome = "forfeit";
+                setGameState(copy)
+                postGame(copy).then(updateGameOver(true));
+              }}
+            >
+              Give Up?
+            </button>
+            {/* container for actor and gameboard components */}
+            <section className="game__container">
+              <Actor listFromAPI={listFromAPI} exportActor={exportActor} updateHintsUnlocked={updateHintsUnlocked}/>
+              <GameBoard
+                actorObjectFromList={actorObjectFromList}
+                gameState={gameState}
+                updateGameState={setGameState}
+                updateGameOver={updateGameOver}
+                hintsUnlocked={hintsUnlocked}
+                updateHintsUnlocked={updateHintsUnlocked}
+              />
+            </section>
+          </>
+        )}
       </>
     );
 
@@ -364,4 +396,5 @@ export const Game =
     //     </section>
     //   </>
     // );
-  };
+  }
+};

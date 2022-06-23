@@ -7,7 +7,7 @@ export const Modes = () => {
   return (
     <>
       <h3>Select Play Mode</h3>
-      <button type="button" onClick={() => navigate("/categories")}>
+      <button type="button" onClick={() => navigate("/game")}>
         Normal Mode
       </button>
       <button>Timed Mode</button>
