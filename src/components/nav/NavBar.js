@@ -1,4 +1,6 @@
+import { Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Container, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllAvatars, getCurrentUser } from "../../managers/APIManager";
 import "./NavBar.css";
@@ -26,12 +28,17 @@ export const NavBar = () => {
   };
 
   return (
-    <ul className="navbar">
-      <li className="navbar__item active">
+    <Navbar>
+      <Container>
+        <Navbar.Brand>
+
         <Link className="navbar__link" to="/profile">
-          <img src={avatarImage()} height="50rem" />
+          <Avatar alt="avatar" src={avatarImage()} />
           {currentUser.userName}
         </Link>
+        </Navbar.Brand>
+    <ul className="navbar">
+      <li className="navbar__item active">
       </li>
       {localStorage.getItem("imdb_user") ? (
         <li className="navbar__item navbar__logout">
@@ -50,5 +57,7 @@ export const NavBar = () => {
         ""
       )}
     </ul>
+      </Container>
+    </Navbar>
   );
 };

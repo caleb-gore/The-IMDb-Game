@@ -1,5 +1,6 @@
 /* imports */
 import React, { useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getUserFromEmail } from "../../managers/APIManager";
@@ -40,36 +41,36 @@ export const Login = () => {
   return (
     <main className="container--login">
       {/* Form */}
-      <section>
-        <form className="form--login" onSubmit={handleLogin /* line 17 */}>
+      <Container >
+        <Form className="mt-3" onSubmit={handleLogin /* line 17 */}>
           {/* Title */}
           <h1>The IMDb Game</h1>
           <h2>Please sign in</h2>
 
           {/* Email Address */}
-          <fieldset>
-            <label htmlFor="inputEmail"> Email address </label>
-            <input
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="inputEmail"> Email address </Form.Label>
+            <Form.Control
               type="email"
               value={email /* line 11 */}
               onChange={(evt) => set(evt.target.value) /* line 11 */}
-              className="form-control"
               placeholder="marilynmonroe@hollywood.star"
               required
+              autoComplete="off"
               autoFocus
-            />
-          </fieldset>
+              />
+          </Form.Group>
 
           {/* Submit Button */}
-          <fieldset>
-            <button type="submit">Sign in</button>
-          </fieldset>
-        </form>
-      </section>
+          <Form.Group className="mb-3">
+            <Button type="submit" variant="warning">Sign in</Button>
+          </Form.Group>
+        </Form>
+      </Container>
 
       {/* Registration button */}
       <section className="link--register">
-        <Link to="/register">Not a member yet?</Link>
+        <Link to="/register" >Not a member yet?</Link>
       </section>
     </main>
   );

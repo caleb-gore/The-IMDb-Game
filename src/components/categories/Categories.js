@@ -1,5 +1,6 @@
 /* imports */
 import { useEffect, useState } from "react";
+import { Button, ButtonGroup } from "react-bootstrap";
 import {
   getLocalLists,
   getList,
@@ -14,23 +15,29 @@ export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
   const [chosenCategory, setChosenCategory] = useState(undefined);
   const showCategoryButtons = () => {
     return (
-      <section>
+      <section style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
         <h1>Categories</h1>
         <h2>Choose a category</h2>
+        <ButtonGroup
+          vertical
+          
+        >
+          {categories.map((category) => {
+            return (
+              /* on button click, set chosen category to the current category */
+              <Button className="mb-1"
+                variant="warning"
+                key={`category--${category.id}`}
+                onClick={() => {
+                  setChosenCategory(category);
+                }}
+              >
+                {category.name}
+              </Button>
+            );
+          })}
+        </ButtonGroup>
         {/* map categories, create button for each category */}
-        {categories.map((category) => {
-          return (
-            /* on button click, set chosen category to the current category */
-            <button
-              key={`category--${category.id}`}
-              onClick={() => {
-                setChosenCategory(category)
-              }}
-            >
-              {category.name}
-            </button>
-          );
-        })}
       </section>
     );
   };
@@ -41,11 +48,14 @@ export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
   }, []);
   return (
     <>
-    {/* if categoryChosen is null, display category buttons, else display category element */}
+      {/* if categoryChosen is null, display category buttons, else display category element */}
       {chosenCategory === undefined ? (
         showCategoryButtons()
       ) : (
-        <Category clearChosenCategory={setChosenCategory} chosenCategory={chosenCategory}/>
+        <Category
+          clearChosenCategory={setChosenCategory}
+          chosenCategory={chosenCategory}
+        />
       )}
     </>
   );
