@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getActor, getList, getUserGames } from "../../managers/APIManager";
 
@@ -7,6 +8,8 @@ export const Actor = (
     listFromAPI,
     exportActor,
     updateHintsUnlocked,
+    gameState, 
+    updateGameState
   } /* { exportGame, exportActor } */
 ) => {
   const [actor, setActor] = useState(undefined);
@@ -28,17 +31,24 @@ export const Actor = (
       {actor === undefined ? (
         <h1>LOADING...</h1>
       ) : (
-        <section className="game__item actor">
-          <h3>Actor: {actor.title}</h3>
+        <section style={{textAlign: "right", justifyContent: "center"}} className="d-flex flex-column actor">
+          <h3>{actor.title}</h3>
           <img src={actor.image} height="200rem" alt="actor" />
-          <button
+          <Button
+          className="mt-auto"
+          variant="warning"
             onClick={() => {
               setActor(randomActor());
               updateHintsUnlocked(false);
+              const copy = {...gameState}
+              copy.correctAnswers = 0
+              copy.incorrectAnswers = 0
+              copy.score = 0
+              updateGameState(copy)
             }}
           >
             Change Actor
-          </button>
+          </Button>
         </section>
       )}
     </>

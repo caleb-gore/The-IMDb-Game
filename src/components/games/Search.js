@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 export const Search = ({ exportUserGuess }) => {
   /* value typed into the search field */
   const [searchValue, updateSearchValue] = useState("");
 
   return (
-    <section>
+    <section className="d-flex flex-column">
       {/* on submit, searchValue is exported as guess, searchValue is reset */}
       <input
         value={searchValue}
@@ -19,14 +20,15 @@ export const Search = ({ exportUserGuess }) => {
           }
         }}
       />
-      <button
+      <Button
+      variant="warning"
         onClick={() => {
           exportUserGuess(searchValue);
           updateSearchValue("");
         }}
       >
         GUESS
-      </button>
+      </Button>
     </section>
   );
 };

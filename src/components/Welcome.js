@@ -13,7 +13,7 @@ export const Welcome = () => {
   useEffect(() => {
     setTimeout(() => {
       setIntro(false);
-    }, 2000);
+    }, 2500);
   }, []);
   /* return */
   if (intro) {

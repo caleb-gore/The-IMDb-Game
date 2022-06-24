@@ -1,6 +1,7 @@
 /* imports */
 import { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import {
   getLocalLists,
   getList,
@@ -10,14 +11,17 @@ import { Category } from "./Category";
 
 /* component function */
 export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
+  
+  const navigate = useNavigate()
   /* useState, set categories from API to state */
+  
   const [categories, setCategories] = useState([]);
   const [chosenCategory, setChosenCategory] = useState(undefined);
   const showCategoryButtons = () => {
     return (
       <section style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
-        <h1>Categories</h1>
-        <h2>Choose a category</h2>
+        <h1>Select a Category</h1>
+        
         <ButtonGroup
           vertical
           
@@ -37,6 +41,13 @@ export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
             );
           })}
         </ButtonGroup>
+        <Button variant="outline-warning" 
+            onClick={() => {
+              navigate("/modes")
+            }}
+          >
+            go back
+          </Button>
         {/* map categories, create button for each category */}
       </section>
     );

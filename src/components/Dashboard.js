@@ -1,6 +1,6 @@
 /* imports */
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, Container } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   getActor,
@@ -76,44 +76,89 @@ export const Dashboard = () => {
   }, []);
   return (
     <>
-    <Container fluid style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
-    <ButtonGroup vertical className="mb-3" style={{textAlign: "center"}}>
-      <Button variant="warning" onClick={() => navigate("/modes")}>
-        Play A Game
-      </Button>
-      <Button variant="light" disabled>Leaderboard</Button>
-      <Button variant="warning" onClick={() => navigate("/rules")}>
-        Rules
-      </Button>
-    </ButtonGroup>
+      <Container
+        fluid
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          textAlign: "center",
+        }}
+      >
+        <ButtonGroup vertical className="mb-3" style={{ textAlign: "center" }}>
+          <Button variant="warning" onClick={() => navigate("/modes")}>
+            Play A Game
+          </Button>
+          <Button variant="light" disabled>
+            Leaderboard
+          </Button>
+          <Button variant="warning" onClick={() => navigate("/rules")}>
+            Rules
+          </Button>
+        </ButtonGroup>
 
+        <h3>Games You've Played</h3>
 
-      <h3>Games You've Played</h3>
-      <ul>
-        {userGames.map((game) => {
-            if (!game.actorId) {
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>W/L</th>
+              <th>Actor</th>
+              <th>Category</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userGames.map((game) => {
+              if (!game.actorId) {
                 return;
-            } else if (game.outcome === "won") {
+              } else if (game.outcome === "won") {
                 return (
-                    <li
-                    style={{fontWeight: "bolder", listStyleType: "none" }}
-                    key={`game--${game.id}`}
-                    >
-                WON | {actorName(game)} | {game.category.name} | {game.score} points
-              </li>
-            );
-        } else if (game.outcome === "forfeit") {
-            return (
+                  <tr style={{ fontWeight: "bolder"}}
+                  key={`game--${game.id}`}>
+                    <td>WON</td>
+                    <td>{actorName(game)}</td>
+                    <td>{game.category.name}</td>
+                    <td>{game.score}</td>
+                  </tr>
+                );
+              } else if (game.outcome === "forfeit") {
+                return (
+                  <tr key={`game--${game.id}`}>
+                    <td>LOST</td>
+                    <td>{actorName(game)}</td>
+                    <td>{game.category.name}</td>
+                    <td>{game.score}</td>
+                  </tr>
+                );
+              }
+            })}
+          </tbody>
+        </Table>
+
+        {/* <ul>
+          {userGames.map((game) => {
+            if (!game.actorId) {
+              return;
+            } else if (game.outcome === "won") {
+              return (
                 <li
-                style={{ listStyleType: "none" }}
-                key={`game--${game.id}`}
+                  style={{ fontWeight: "bolder", listStyleType: "none" }}
+                  key={`game--${game.id}`}
                 >
-                LOST | {actorName(game)} | {game.category.name} | {game.score} points
-              </li>
-            );
-        }
-    })}
-      </ul>
+                  WON | {actorName(game)} | {game.category.name} | {game.score}{" "}
+                  points
+                </li>
+              );
+            } else if (game.outcome === "forfeit") {
+              return (
+                <li style={{ listStyleType: "none" }} key={`game--${game.id}`}>
+                  LOST | {actorName(game)} | {game.category.name} | {game.score}{" "}
+                  points
+                </li>
+              );
+            }
+          })}
+        </ul> */}
       </Container>
 
       {/* <h3>Games Played</h3>

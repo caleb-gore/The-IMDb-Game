@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Button, ButtonGroup, Container } from "react-bootstrap";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getList, getUserGames, postGame } from "../../managers/APIManager";
 import { Game } from "../games/Game";
@@ -24,18 +25,13 @@ export const Category = (
         />
       ) : (
         <>
-          {/* onclick, return to categories */}
-          <button
-            onClick={() => {
-              clearChosenCategory(undefined);
-            }}
-          >
-            go back
-          </button>
-          <h1>Category Is: {chosenCategory.name} </h1>
+        <Container style={{textAlign: "center"}}className="d-flex justify-content-center flex-column text-align-center">
 
+          <h1>Category Is:</h1>
+          <h1> {chosenCategory.name} </h1>
           {/* create new game object, save it to gameState, get list for current category, initiate game play */}
-          <button
+          <Button variant="warning"
+          className="mb-3"
             onClick={() => {
               const newGameObject = {
                 score: 0,
@@ -52,7 +48,19 @@ export const Category = (
             }}
           >
             Let's Play!
-          </button>
+          </Button>
+          {/* onclick, return to categories */}
+          <Button variant="outline-warning" 
+            onClick={() => {
+              clearChosenCategory(undefined);
+            }}
+          >
+            go back
+          </Button>
+          <div className="d-flex justify-content-center align-items-end">
+
+          </div>
+        </Container>
         </>
       )}
     </>

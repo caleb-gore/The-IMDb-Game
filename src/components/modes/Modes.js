@@ -18,7 +18,13 @@ export const Modes = () => {
       <Button variant="light" disabled>Challenge Mode</Button>
       
     </ButtonGroup>
-
+    <Button variant="outline-warning" 
+            onClick={() => {
+              navigate("/dashboard")
+            }}
+          >
+            go back
+          </Button>
     </Container>
     </>
   );

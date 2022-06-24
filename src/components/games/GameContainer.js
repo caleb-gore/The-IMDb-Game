@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Container } from "react-bootstrap";
 import { Actor } from "./Actor";
 import { Game } from "./Game";
 
@@ -10,7 +11,7 @@ export const GameContainer = () => {
 
   return (
     <>
-      <article className="game__container">
+      <Container className="">
         <Actor
           exportGame={exportGame}
           exportActor={exportActor}
@@ -23,7 +24,7 @@ export const GameContainer = () => {
           exportGameState={importGameState}
           changeActorOutcome={gameStateChangedOutcome}
         />
-      </article>
+      </Container>
     </>
   );
 };

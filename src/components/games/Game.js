@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   getList,
@@ -42,12 +43,18 @@ export const Game = (
       <>
         {/* display loading until listFromAPI is updated */}
         {listFromAPI === undefined ? (
-          <h1>LOADING...</h1>
+          <h1 style={{textAlign: "center", alignSelf: "center"}}>LOADING...</h1>
         ) : (
           <>
-            <h2>Category: {chosenCategory.name}</h2>
+            <Container className="">
+              <Row>
+                <Col className="d-flex flex-column">
+            <h2>{chosenCategory.name}</h2>
             <h2>Score: {gameState.score}</h2>
-            <button
+            <h2>❌: {gameState.incorrectAnswers}</h2>
+            <Button
+              className="mt-auto"
+              variant="warning"
               onClick={() => {
                 const copy = { ...gameState };
                 copy.outcome = "forfeit";
@@ -56,10 +63,16 @@ export const Game = (
               }}
             >
               Give Up?
-            </button>
+            </Button>
+                </Col>
+                <Col>
             {/* container for actor and gameboard components */}
+              <Actor listFromAPI={listFromAPI} exportActor={exportActor} updateHintsUnlocked={updateHintsUnlocked} gameState={gameState} updateGameState={setGameState}/>
+                </Col>
+
+              </Row>
+            </Container>
             <section className="game__container">
-              <Actor listFromAPI={listFromAPI} exportActor={exportActor} updateHintsUnlocked={updateHintsUnlocked}/>
               <GameBoard
                 actorObjectFromList={actorObjectFromList}
                 gameState={gameState}
