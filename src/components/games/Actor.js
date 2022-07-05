@@ -8,8 +8,8 @@ export const Actor = (
     listFromAPI,
     exportActor,
     updateHintsUnlocked,
-    gameState, 
-    updateGameState
+    gameState,
+    updateGameState,
   } /* { exportGame, exportActor } */
 ) => {
   const [actor, setActor] = useState(undefined);
@@ -29,22 +29,29 @@ export const Actor = (
   return (
     <>
       {actor === undefined ? (
-        <h1>LOADING...</h1>
+        <>
+          <h2 class="animate">Loading</h2>
+        </>
       ) : (
-        <section style={{textAlign: "right", justifyContent: "center"}} className="d-flex flex-column actor">
+        <section
+          style={{ textAlign: "center", justifyContent: "center" }}
+          className="d-flex flex-column actor"
+        >
           <h3>{actor.title}</h3>
-          <img src={actor.image} height="200rem" alt="actor" />
+          <div className="align-self-center">
+          <img src={actor.image}  height="300rem" alt="actor" />
+          </div>
           <Button
-          className="mt-auto"
-          variant="warning"
+            className="mt-2 w-50 mx-auto"
+            variant="warning"
             onClick={() => {
               setActor(randomActor());
               updateHintsUnlocked(false);
-              const copy = {...gameState}
-              copy.correctAnswers = 0
-              copy.incorrectAnswers = 0
-              copy.score = 0
-              updateGameState(copy)
+              const copy = { ...gameState };
+              copy.correctAnswers = 0;
+              copy.incorrectAnswers = 0;
+              copy.score = 0;
+              updateGameState(copy);
             }}
           >
             Change Actor

@@ -1,6 +1,6 @@
 /* import */
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, Stack } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import logo from "../images/TheImdbGameAnimatedLogo.gif";
 import logoSVG from "../images/TheImdbGameLogo.svg";
@@ -45,7 +45,7 @@ export const Welcome = () => {
           </nav>
 
           {/* buttons */}
-          <Stack gap={2} className="col-md-5 mx-auto">
+          <Stack gap={2} className="col-md-5 mx-auto w-25">
             <Button variant="warning" onClick={() => navigate("/register")}>
               GET STARTED
             </Button>
@@ -54,6 +54,7 @@ export const Welcome = () => {
             </Button>
           </Stack>
 
+          <Container className="w-50">
           {/* subtitle */}
           <hr />
           <h3>What is The IMDb Game?</h3>
@@ -77,6 +78,7 @@ export const Welcome = () => {
             enough, it just becomes a free-for-all of hints. That's The IMDb
             Game"
           </blockquote>
+          </Container>
         </div>
       </>
     );

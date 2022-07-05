@@ -28,35 +28,33 @@ export const NavBar = () => {
   };
 
   return (
-    <Navbar>
+    <Navbar bg="light">
       <Container>
-        <Navbar.Brand>
-
-        <Link className="navbar__link" to="/profile">
-          <Avatar alt="avatar" src={avatarImage()} />
-          {currentUser.userName}
-        </Link>
-        </Navbar.Brand>
-    <ul className="navbar">
-      <li className="navbar__item active">
-      </li>
-      {localStorage.getItem("imdb_user") ? (
-        <li className="navbar__item navbar__logout">
-          <Link
-            className="navbar__link"
-            to=""
-            onClick={() => {
-              localStorage.removeItem("imdb_user");
-              navigate("/", { replace: true });
-            }}
-          >
-            Logout
+        <Navbar.Brand className="d-flex flex-row">
+            <p className="mr-2">{currentUser.userName}</p>
+          <Link className="navbar__link " to="/profile">
+            <Avatar  alt="avatar" src={avatarImage()} />
           </Link>
-        </li>
-      ) : (
-        ""
-      )}
-    </ul>
+        </Navbar.Brand>
+        <ul className="navbar">
+          <li className="navbar__item active"></li>
+          {localStorage.getItem("imdb_user") ? (
+            <li className="navbar__item navbar__logout">
+              <Link
+                className="navbar__link"
+                to=""
+                onClick={() => {
+                  localStorage.removeItem("imdb_user");
+                  navigate("/", { replace: true });
+                }}
+              >
+                Logout
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+        </ul>
       </Container>
     </Navbar>
   );

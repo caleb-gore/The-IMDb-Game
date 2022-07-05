@@ -1,6 +1,6 @@
 /* imports */
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   getLocalLists,
@@ -22,14 +22,14 @@ export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
       <section style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
         <h1>Select a Category</h1>
         
-        <ButtonGroup
+        <Stack gap={2} className="mx-auto w-25"
           vertical
           
         >
           {categories.map((category) => {
             return (
               /* on button click, set chosen category to the current category */
-              <Button className="mb-1"
+              <Button className=""
                 variant="warning"
                 key={`category--${category.id}`}
                 onClick={() => {
@@ -40,8 +40,8 @@ export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
               </Button>
             );
           })}
-        </ButtonGroup>
-        <Button variant="outline-warning" 
+        </Stack>
+        <Button className="mt-2 mx-auto w-25" variant="outline-warning" 
             onClick={() => {
               navigate("/modes")
             }}

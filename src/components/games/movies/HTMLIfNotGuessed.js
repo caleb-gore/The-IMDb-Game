@@ -35,8 +35,12 @@ export const HTMLIfNotGuessed = ({
   };
 
   return (
-    <section key={`project--${project.id}`}>
-      {hintsUnlocked && projectDetails?.type === "TVSeries" ? <h5>TV Series</h5> : ""}
+    <section className="" key={`project--${project.id}`}>
+      {hintsUnlocked && projectDetails?.type === "TVSeries" ? (
+        <h5>TV Series</h5>
+      ) : (
+        ""
+      )}
       {hintsUnlocked && !seeHints ? (
         <button
           onClick={() => {
@@ -53,8 +57,7 @@ export const HTMLIfNotGuessed = ({
       )}
       {hintStatus[knownForArray.indexOf(project)] ? (
         <>
-            
-          <HintButtons projectDetails={projectDetails}/>
+          <HintButtons projectDetails={projectDetails} />
         </>
       ) : (
         <img
@@ -65,7 +68,6 @@ export const HTMLIfNotGuessed = ({
       )}
       <h3>{hangManifyTitle(project.title)}</h3>
       {hintsUnlocked ? <h4>{project.year}</h4> : ""}
-      
     </section>
   );
 };

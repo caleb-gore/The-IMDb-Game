@@ -51,6 +51,7 @@ export const Login = () => {
           <Form.Group className="mb-3">
             <Form.Label htmlFor="inputEmail"> Email address </Form.Label>
             <Form.Control
+                className="w-25 mx-auto"
               type="email"
               value={email /* line 11 */}
               onChange={(evt) => set(evt.target.value) /* line 11 */}

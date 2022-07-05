@@ -6,7 +6,7 @@ export const Search = ({ exportUserGuess }) => {
   const [searchValue, updateSearchValue] = useState("");
 
   return (
-    <section className="d-flex flex-column">
+    <section className="d-flex flex-column w-25 mx-auto" >
       {/* on submit, searchValue is exported as guess, searchValue is reset */}
       <input
         value={searchValue}

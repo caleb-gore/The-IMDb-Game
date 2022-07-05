@@ -31,7 +31,7 @@ export const Category = (
           <h1> {chosenCategory.name} </h1>
           {/* create new game object, save it to gameState, get list for current category, initiate game play */}
           <Button variant="warning"
-          className="mb-3"
+          className="mb-2 mx-auto w-25"
             onClick={() => {
               const newGameObject = {
                 score: 0,
@@ -50,7 +50,7 @@ export const Category = (
             Let's Play!
           </Button>
           {/* onclick, return to categories */}
-          <Button variant="outline-warning" 
+          <Button className="mx-auto w-25" variant="outline-warning" 
             onClick={() => {
               clearChosenCategory(undefined);
             }}

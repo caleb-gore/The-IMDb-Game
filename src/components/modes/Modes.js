@@ -1,5 +1,5 @@
 /* imports */
-import { Button, ButtonGroup, Container } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 /* component */
@@ -10,15 +10,15 @@ export const Modes = () => {
     <Container fluid style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
       <h3>Select Play Mode</h3>
 
-      <ButtonGroup vertical style={{textAlign: "center"}}>
+      <Stack gap={2} className="w-25 mx-auto" vertical style={{textAlign: "center"}}>
       <Button variant="warning" onClick={() => navigate("/game")}>
         Normal Mode
       </Button>
-      <Button variant="light" disabled>Timed Mode</Button>
-      <Button variant="light" disabled>Challenge Mode</Button>
+      <Button variant="warning" disabled>Timed Mode</Button>
+      <Button variant="warning" disabled>Challenge Mode</Button>
       
-    </ButtonGroup>
-    <Button variant="outline-warning" 
+    </Stack>
+    <Button className="w-25 mx-auto mt-2" variant="outline-warning" 
             onClick={() => {
               navigate("/dashboard")
             }}

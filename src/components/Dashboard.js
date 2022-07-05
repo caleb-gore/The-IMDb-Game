@@ -1,6 +1,6 @@
 /* imports */
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, Container, Table } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Stack, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   getActor,
@@ -84,21 +84,21 @@ export const Dashboard = () => {
           textAlign: "center",
         }}
       >
-        <ButtonGroup vertical className="mb-3" style={{ textAlign: "center" }}>
+        <Stack gap={2} vertical className="mb-3 w-25 mx-auto mt-3" style={{ textAlign: "center" }}>
           <Button variant="warning" onClick={() => navigate("/modes")}>
             Play A Game
           </Button>
-          <Button variant="light" disabled>
+          <Button variant="warning" disabled>
             Leaderboard
           </Button>
           <Button variant="warning" onClick={() => navigate("/rules")}>
             Rules
           </Button>
-        </ButtonGroup>
+        </Stack>
 
         <h3>Games You've Played</h3>
 
-        <Table striped bordered hover>
+        <Table className="w-75 mx-auto" striped bordered hover>
           <thead>
             <tr>
               <th>W/L</th>
