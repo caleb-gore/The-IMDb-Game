@@ -34,6 +34,7 @@ export const Register = (props) => {
     favGenreId: 0,
     avatarId: 0,
   });
+  const [selectedAvatar, updateSelectedAvatar] = useState(0)
 
   /* navigate */
   let navigate = useNavigate();
@@ -86,6 +87,11 @@ export const Register = (props) => {
     getAllAvatars().then(setAvatars);
   }, []);
 
+useEffect(
+  () => {
+    updateSelectedAvatar(user.avatarId)
+  }, [user]
+)
   /* JSX */
   return (
     <Container
@@ -99,10 +105,11 @@ export const Register = (props) => {
       }}
     >
       {/* form */}
-      <h1 className="h3 mb-3 font-weight-normal">
+      <h1 className="h3 mb-3 font-weight-normal mt-3">
         Please Register for The IMDb Game
       </h1>
       <Form
+      className="w-50 d-flex flex-column"
         style={{ textAlign: "left", maxWidth: "90%" }}
         onSubmit={handleRegister}
       >
@@ -193,7 +200,7 @@ export const Register = (props) => {
           <div>
             {/* display search results */}
             {searchTerms.length > 0 ? (
-              <ButtonGroup vertical>
+              <ButtonGroup vertical className="w-100">
                 {results?.results?.slice(0, 5).map((result) => {
                   return (
                     <Button
@@ -218,31 +225,55 @@ export const Register = (props) => {
         </Form.Group>
 
         {/* Avatar (radio) */}
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3 mt-3 d-flex justify-content-center">
           <div>
             {/* display radio buttons from avatars in state */}
             {avatars.map((avatar) => {
-              return (
-                <Form.Label key={`radio--${avatar.id}`}>
-                  <Form.Control
-                    onChange={(evt) => {
-                      const copy = { ...user };
-                      copy.avatarId = parseInt(evt.target.value);
-                      setUser(copy);
-                    }}
-                    type="radio"
-                    name="avatar"
-                    value={avatar.id}
-                    required
-                  />
-                  <Avatar
-                    sx={{ width: 60, height: 60 }}
-                    className="m-2"
-                    src={avatar.image}
-                    width="75px"
-                  />
-                </Form.Label>
-              );
+              if (avatar.id === selectedAvatar) {
+                return (
+                  <Form.Label key={`radio--${avatar.id}`}>
+                    <Form.Control
+                      onChange={(evt) => {
+                        const copy = { ...user };
+                        copy.avatarId = parseInt(evt.target.value);
+                        setUser(copy);
+                      }}
+                      type="radio"
+                      name="avatar"
+                      value={avatar.id}
+                      required
+                    />
+                    <Avatar
+                      sx={{ width: 80, height: 80 }}
+                      className="m-2"
+                      src={avatar.image}
+                      width="75px"
+                    />
+                  </Form.Label>
+                );
+              } else {
+                return (
+                  <Form.Label key={`radio--${avatar.id}`}>
+                    <Form.Control
+                      onChange={(evt) => {
+                        const copy = { ...user };
+                        copy.avatarId = parseInt(evt.target.value);
+                        setUser(copy);
+                      }}
+                      type="radio"
+                      name="avatar"
+                      value={avatar.id}
+                      required
+                    />
+                    <Avatar
+                      sx={{ width: 60, height: 60 }}
+                      className="m-2"
+                      src={avatar.image}
+                      width="75px"
+                    />
+                  </Form.Label>
+                );
+              }
             })}
           </div>
         </Form.Group>
