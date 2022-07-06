@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 export const Hints = (
   {
     hintsUnlocked,
@@ -9,13 +11,15 @@ export const Hints = (
       {hintsUnlocked ? (
         ""
       ) : (
-        <button
+        <Button
+          className="w-25 mt-3 mx-auto"
+          variant="warning"
           onClick={() => {
             updateHintsUnlocked(true);
           }}
         >
           UNLOCK HINTS
-        </button>
+        </Button>
       )}
     </>
   );

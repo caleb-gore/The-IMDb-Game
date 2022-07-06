@@ -7,7 +7,7 @@ export const Modes = () => {
   const navigate = useNavigate();
   return (
     <>
-    <Container fluid style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
+    <Container className="mt-3" fluid style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
       <h3>Select Play Mode</h3>
 
       <Stack gap={2} className="w-25 mx-auto" vertical style={{textAlign: "center"}}>

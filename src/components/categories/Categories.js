@@ -19,7 +19,7 @@ export const Categories = ({ setCategory, setCategoryId, exportSelected }) => {
   const [chosenCategory, setChosenCategory] = useState(undefined);
   const showCategoryButtons = () => {
     return (
-      <section style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
+      <section className="mt-3" style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
         <h1>Select a Category</h1>
         
         <Stack gap={2} className="mx-auto w-25"

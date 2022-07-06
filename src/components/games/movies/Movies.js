@@ -22,21 +22,21 @@ export const Movies = ({
     return knownForArray.map((project) => {
       if (correctlyGuessed[knownForArray.indexOf(project)]) {
         return (
-          <section key={`project--${project.id}`}>
+          
             <HTMLIfGuessed project={project} />
-          </section>
+          
         );
       } else {
         return (
-          <section key={`project--${project.id}`}>
             <HTMLIfNotGuessed
               project={project}
               hintStatus={hintStatus}
               hintsUnlocked={hintsUnlocked}
               knownForArray={knownForArray}
+              gameState={gameState}
+              updateGameState={updateGameState}
               updateHintStatus={updateHintStatus}
             />
-          </section>
         );
       }
     });

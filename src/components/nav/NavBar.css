@@ -1,17 +1,18 @@
-
-
 .navbar {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
+  position: relative;
 }
 
-.navbar__item {
-    flex-basis: 20%;
-    list-style-type: none;
+.brand {
+  position: absolute;
+  left: 50%;
+  margin-left: -50px !important;
+  display: block;
 }
 
 .navbar__logout {
-    margin-left: auto;
+  margin-left: auto;
 }
 
+.brand-center {
+  justify-content: center;
+}

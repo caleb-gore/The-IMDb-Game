@@ -25,7 +25,7 @@ export const Category = (
         />
       ) : (
         <>
-        <Container style={{textAlign: "center"}}className="d-flex justify-content-center flex-column text-align-center">
+        <Container style={{textAlign: "center"}}className=" mt-3 d-flex justify-content-center flex-column text-align-center">
 
           <h1>Category Is:</h1>
           <h1> {chosenCategory.name} </h1>

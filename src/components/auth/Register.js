@@ -249,7 +249,7 @@ export const Register = (props) => {
 
         {/* Submit Button */}
 
-        <Button className="px-6" variant="warning" type="submit">
+        <Button className=" mx-auto w-25" variant="warning" type="submit">
           {" "}
           Register{" "}
         </Button>

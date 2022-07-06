@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { CardGroup, Col, Container, Row } from "react-bootstrap";
 import { Hints } from "./Hints";
 import { Movies } from "./movies/Movies";
 import { Search } from "./Search";
@@ -15,14 +15,12 @@ export const GameBoard = ({
   const [userGuess, exportUserGuess] = useState("");
   return (
     <Container className="mt-3">
-        <Row>
-            <Col>
+        
       <Search exportUserGuess={exportUserGuess} />
-            </Col>
-        </Row>
+        
       {/* <Hints/> */}
-      <Row>
-        <Col>
+      
+        <CardGroup /* className="d-flex flex-row justify-content-center" */>
       <Movies
         hintsUnlocked={hintsUnlocked}
         userGuess={userGuess}
@@ -31,8 +29,8 @@ export const GameBoard = ({
         updateGameState={updateGameState}
         updateGameOver={updateGameOver}
       />
-        </Col>
-      </Row>
+        </CardGroup>
+      
       {gameState.incorrectAnswers > 1 ? (
         <Hints
           hintsUnlocked={hintsUnlocked}

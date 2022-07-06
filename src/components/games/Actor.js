@@ -39,7 +39,7 @@ export const Actor = (
         >
           <h3>{actor.title}</h3>
           <div className="align-self-center">
-          <img src={actor.image}  height="300rem" alt="actor" />
+          <img src={actor.image} style={{objectFit: "cover"}} height="300rem" width="200" alt="actor" />
           </div>
           <Button
             className="mt-2 w-50 mx-auto"
