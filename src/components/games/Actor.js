@@ -1,75 +1,100 @@
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import {
-  getActor,
-  getList,
-  getUserGames,
-  postGame,
-} from "../../managers/APIManager";
+import { getActor, getList, getUserGames } from "../../managers/APIManager";
 
-export const Actor = ({ exportGame, exportActor, gameState, setGameState }) => {
-  const navigate = useNavigate();
-  const [userGames, setUserGames] = useState([]);
-  const [currentGame, setCurrentGame] = useState({});
-  const [actor, setActor] = useState({});
-  const [category, setCategory] = useState({});
+export const Actor = (
+  {
+    listFromAPI,
+    exportActor,
+    updateHintsUnlocked,
+    gameState,
+    updateGameState,
+  } /* { exportGame, exportActor } */
+) => {
+  const [actor, setActor] = useState(undefined);
 
-  const changeActor = () => {
-    const copy = { ...gameState };
-    copy.outcome = "forfeit";
-    setGameState(copy);
-
-    const newGame = {
-      actorId:
-        category?.items[Math.floor(Math.random() * category.items.length)].id,
-      categoryId: currentGame.categoryId,
-      userId: currentGame.userId,
-      correctAnswers: 0,
-      incorrectAnswers: 0,
-      score: 0,
-      timestamp: Date.now(),
-      outcome: "",
-    };
-
-    postGame(newGame).then(getUserGames(newGame.userId)).then(setUserGames);
+  const randomActor = () => {
+    const randomIndex = Math.floor(Math.random() * listFromAPI?.items?.length);
+    return listFromAPI?.items[randomIndex];
   };
 
   useEffect(() => {
-    const currentUserId = JSON.parse(localStorage.getItem("imdb_user")).id;
-    getUserGames(currentUserId).then(setUserGames);
-  }, []);
+    setActor(randomActor());
+  }, [listFromAPI]);
 
   useEffect(() => {
-    const gameObject = userGames[userGames.length - 1];
-    setCurrentGame(gameObject);
-    exportGame(gameObject);
-  }, [userGames]);
-
-  useEffect(() => {
-    if (currentGame) {
-      Promise.all([
-        getActor(currentGame.actorId).then((actorObject) => {
-          setActor(actorObject);
-          exportActor(actorObject);
-        }),
-
-        getList(currentGame.categoryId).then(setCategory),
-      ]);
-    }
-  }, [currentGame]);
-
+    exportActor(actor);
+  }, [actor]);
   return (
-    <section className="game__item actor">
-      <h3>{actor.name}</h3>
-      <img src={actor.image} height="200rem" alt="picture of a famous person" />
-      <h4>{actor.awards}</h4>
-      <button
-        onClick={() => {
-          changeActor();
-        }}
-      >
-        Change Actor
-      </button>
-    </section>
+    <>
+      {actor === undefined ? (
+        <>
+          <h2 class="animate">Loading</h2>
+        </>
+      ) : (
+        <section
+          style={{ textAlign: "center", justifyContent: "center" }}
+          className="d-flex flex-column actor"
+        >
+          <h3>{actor.title}</h3>
+          <div className="align-self-center">
+          <img src={actor.image} style={{objectFit: "cover"}} height="300rem" width="200" alt="actor" />
+          </div>
+          <Button
+            className="mt-2 w-50 mx-auto"
+            variant="warning"
+            onClick={() => {
+              setActor(randomActor());
+              updateHintsUnlocked(false);
+              const copy = { ...gameState };
+              copy.correctAnswers = 0;
+              copy.incorrectAnswers = 0;
+              copy.score = 0;
+              updateGameState(copy);
+            }}
+          >
+            Change Actor
+          </Button>
+        </section>
+      )}
+    </>
   );
+  // const navigate = useNavigate();
+  // const [userGames, setUserGames] = useState([]);
+  // const [currentGame, setCurrentGame] = useState({});
+  // const [actor, setActor] = useState({});
+  // const [category, setCategory] = useState({});
+
+  // useEffect(() => {
+  //   const currentUserId = JSON.parse(localStorage.getItem("imdb_user")).id;
+  //   getUserGames(currentUserId).then(setUserGames);
+  // }, []);
+
+  // useEffect(() => {
+  //   const gameObject = userGames[userGames.length - 1];
+  //   setCurrentGame(gameObject);
+  //   exportGame(gameObject);
+  // }, [userGames]);
+
+  // useEffect(() => {
+  //   if (currentGame) {
+  //     Promise.all([
+  //       getActor(currentGame.actorId).then((actorObject) => {
+  //         setActor(actorObject);
+  //         exportActor(actorObject);
+  //       }),
+
+  //       getList(currentGame.categoryId).then(setCategory),
+  //     ]);
+  //   }
+  // }, [currentGame]);
+
+  // return (
+  //   <section className="game__item actor">
+  //     <h3>{actor.name}</h3>
+  //     <img src={actor.image} height="200rem" alt="picture of a famous person" />
+  //     <h4>{actor.awards}</h4>
+  //   </section>
+  // );
 };

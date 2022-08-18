@@ -1,5 +1,5 @@
 /* imports */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Categories } from "./Categories";
 import { Category } from "./Category";
 

@@ -1,5 +1,14 @@
 /* imports */
+import { FilePresent } from "@mui/icons-material";
+import { Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Form,
+  FormGroup,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   getAllAvatars,
@@ -25,6 +34,7 @@ export const Register = (props) => {
     favGenreId: 0,
     avatarId: 0,
   });
+  const [selectedAvatar, updateSelectedAvatar] = useState(0)
 
   /* navigate */
   let navigate = useNavigate();
@@ -77,59 +87,79 @@ export const Register = (props) => {
     getAllAvatars().then(setAvatars);
   }, []);
 
+useEffect(
+  () => {
+    updateSelectedAvatar(user.avatarId)
+  }, [user]
+)
   /* JSX */
   return (
-    <main style={{ textAlign: "center" }}>
+    <Container
+      fluid
+      className={"mt-3"}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        textAlign: "center",
+        alignItems: "center",
+      }}
+    >
       {/* form */}
-      <form className="form--login" onSubmit={handleRegister}>
-        <h1 className="h3 mb-3 font-weight-normal">
-          Please Register for The IMDb Game
-        </h1>
-
+      <h1 className="h3 mb-3 font-weight-normal mt-3">
+        Please Register for The IMDb Game
+      </h1>
+      <Form
+      className="w-50 d-flex flex-column"
+        style={{ textAlign: "left", maxWidth: "90%" }}
+        onSubmit={handleRegister}
+      >
         {/* Full Name */}
-        <fieldset>
-          <label htmlFor="fullName"> Full Name </label>
-          <input
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="fullName"> Full Name </Form.Label>
+          <Form.Control
             onChange={updateUser}
             type="text"
             id="fullName"
             className="form-control"
             placeholder="Enter your name"
+            autoComplete="off"
             required
             autoFocus
           />
-        </fieldset>
+        </Form.Group>
 
         {/* Email Address */}
-        <fieldset>
-          <label htmlFor="email"> Email address </label>
-          <input
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="email"> Email address </Form.Label>
+          <Form.Control
             onChange={updateUser}
             type="email"
             id="email"
             className="form-control"
+            autoComplete="off"
             placeholder="Email address"
             required
           />
-        </fieldset>
+        </Form.Group>
 
         {/* Username */}
-        <fieldset>
-          <label htmlFor="userName"> Username </label>
-          <input
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="userName"> Username </Form.Label>
+          <Form.Control
             onChange={updateUser}
             type="text"
             id="userName"
             className="form-control"
+            autoComplete="off"
             placeholder="Create a Username"
             required
           />
-        </fieldset>
+        </Form.Group>
 
         {/* Favorite Genre (Select) */}
-        <fieldset>
-          <label htmlFor="favGenreId"> Favorite Genre </label>
-          <select
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="favGenreId"> Favorite Genre </Form.Label>
+          <Form.Select
             onChange={(evt) => {
               const copy = { ...user };
               copy.favGenreId = parseInt(evt.target.value);
@@ -148,13 +178,13 @@ export const Register = (props) => {
                 {genre.genre}
               </option>
             ))}
-          </select>
-        </fieldset>
+          </Form.Select>
+        </Form.Group>
 
         {/* Favorite Movie (search) */}
-        <fieldset>
-          <label htmlFor="favMovieId"> Favorite Movie </label>
-          <input
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="favMovieId"> Favorite Movie </Form.Label>
+          <Form.Control
             onChange={(evt) => {
               updateSearchTerms(evt.target.value);
               /* search movies from API */
@@ -163,62 +193,98 @@ export const Register = (props) => {
             type="text"
             id="favMovieId"
             className="form-control"
+            autoComplete="off"
             placeholder="Search for a movie"
             required
           />
           <div>
             {/* display search results */}
-            {searchTerms.length > 0
-              ? results?.results?.slice(0, 5).map((result) => {
+            {searchTerms.length > 0 ? (
+              <ButtonGroup vertical className="w-100">
+                {results?.results?.slice(0, 5).map((result) => {
                   return (
-                    <button
-                      type="button"
+                    <Button
+                      variant="dark outline"
                       onClick={(evt) => {
                         updateUser(evt);
-                        evt.target.style.backgroundColor = "pink";
+                        updateSearchTerms("");
                       }}
                       id="favMovieId"
                       value={result.id}
                       className="form-control"
                     >
                       {result.title} {result.description}
-                    </button>
+                    </Button>
                   );
-                })
-              : ""}
+                })}
+              </ButtonGroup>
+            ) : (
+              ""
+            )}
           </div>
-        </fieldset>
+        </Form.Group>
 
         {/* Avatar (radio) */}
-        <fieldset>
+        <Form.Group className="mb-3 mt-3 d-flex justify-content-center">
           <div>
             {/* display radio buttons from avatars in state */}
             {avatars.map((avatar) => {
-              return (
-                <label key={`radio--${avatar.id}`}>
-                  <input
-                    onChange={(evt) => {
-                      const copy = { ...user };
-                      copy.avatarId = parseInt(evt.target.value);
-                      setUser(copy);
-                    }}
-                    type="radio"
-                    name="avatar"
-                    value={avatar.id}
-                    required
-                  />
-                  <img src={avatar.image} width="75px" />
-                </label>
-              );
+              if (avatar.id === selectedAvatar) {
+                return (
+                  <Form.Label key={`radio--${avatar.id}`}>
+                    <Form.Control
+                      onChange={(evt) => {
+                        const copy = { ...user };
+                        copy.avatarId = parseInt(evt.target.value);
+                        setUser(copy);
+                      }}
+                      type="radio"
+                      name="avatar"
+                      value={avatar.id}
+                      required
+                    />
+                    <Avatar
+                      sx={{ width: 80, height: 80 }}
+                      className="m-2"
+                      src={avatar.image}
+                      width="75px"
+                    />
+                  </Form.Label>
+                );
+              } else {
+                return (
+                  <Form.Label key={`radio--${avatar.id}`}>
+                    <Form.Control
+                      onChange={(evt) => {
+                        const copy = { ...user };
+                        copy.avatarId = parseInt(evt.target.value);
+                        setUser(copy);
+                      }}
+                      type="radio"
+                      name="avatar"
+                      value={avatar.id}
+                      required
+                    />
+                    <Avatar
+                      sx={{ width: 60, height: 60 }}
+                      className="m-2"
+                      src={avatar.image}
+                      width="75px"
+                    />
+                  </Form.Label>
+                );
+              }
             })}
           </div>
-        </fieldset>
+        </Form.Group>
 
         {/* Submit Button */}
-        <fieldset>
-          <button type="submit"> Register </button>
-        </fieldset>
-      </form>
-    </main>
+
+        <Button className=" mx-auto w-25" variant="warning" type="submit">
+          {" "}
+          Register{" "}
+        </Button>
+      </Form>
+    </Container>
   );
 };

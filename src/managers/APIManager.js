@@ -40,11 +40,12 @@ export const searchMovies = (searchTerm) => {
   ).then((response) => response.json());
 };
 
-export const getLocalLists = () => {
-  return fetch(`http://localhost:8088/lists`).then((response) =>
+export const getCategories = () => {
+  return fetch(`http://localhost:8088/categories`).then((response) =>
     response.json()
   );
 };
+
 
 export const getList = (listId) => {
   return fetch(
@@ -67,8 +68,8 @@ export const postGame = (gameObject) => {
     body: JSON.stringify(gameObject),
   }).then((res) => res.json());
 };
-export const putGame = (id, gameObject) => {
-  return fetch(`http://localhost:8088/games/${id}`, {
+export const putGame = (gameObject) => {
+  return fetch(`http://localhost:8088/games/${gameObject?.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -78,9 +79,14 @@ export const putGame = (id, gameObject) => {
 };
 
 export const getUserGames = (userId) => {
-  return fetch(`http://localhost:8088/games?_userId=${userId}`).then(
-    (response) => response.json()
-  );
+  return fetch(
+    `http://localhost:8088/games?_sort=id&_order=desc&_expand=category&userId=${userId}`
+  ).then((response) => response.json());
+};
+export const getUserGamesWithCategory = (userId) => {
+  return fetch(
+    `http://localhost:8088/games?_expand=category&userId=${userId}`
+  ).then((response) => response.json());
 };
 
 export const getProject = (projectId) => {
@@ -88,3 +94,11 @@ export const getProject = (projectId) => {
     `https://imdb-api.com/en/API/Title/k_xujmt7ax/${projectId}`
   ).then((response) => response.json());
 };
+
+export const getWinners = () => {
+  return fetch(`http://localhost:8088/winnerGifs`).then((response) => response.json())
+}
+
+export const getLosers = () => {
+  return fetch(`http://localhost:8088/loserGifs`).then((response) => response.json())
+}
