@@ -1,3 +1,7 @@
+import { imdbAPIKey } from "./APIKeyManager";
+
+
+
 /* GET calls */
 
 export const getAllAvatars = () => {
@@ -36,7 +40,7 @@ export const getUserFromEmail = (email) => {
 
 export const searchMovies = (searchTerm) => {
   return fetch(
-    `https://imdb-api.com/en/API/SearchMovie/k_xujmt7ax/${searchTerm}`
+    `https://imdb-api.com/en/API/SearchMovie/${imdbAPIKey}/${searchTerm}`
   ).then((response) => response.json());
 };
 
@@ -49,12 +53,12 @@ export const getCategories = () => {
 
 export const getList = (listId) => {
   return fetch(
-    `https://imdb-api.com/en/API/IMDbList/k_xujmt7ax/${listId}`
+    `https://imdb-api.com/en/API/IMDbList/${imdbAPIKey}/${listId}`
   ).then((response) => response.json());
 };
 
 export const getActor = (actorId) => {
-  return fetch(`https://imdb-api.com/en/API/Name/k_xujmt7ax/${actorId}`).then(
+  return fetch(`https://imdb-api.com/en/API/Name/${imdbAPIKey}/${actorId}`).then(
     (response) => response.json()
   );
 };
@@ -91,7 +95,7 @@ export const getUserGamesWithCategory = (userId) => {
 
 export const getProject = (projectId) => {
   return fetch(
-    `https://imdb-api.com/en/API/Title/k_xujmt7ax/${projectId}`
+    `https://imdb-api.com/en/API/Title/${imdbAPIKey}/${projectId}`
   ).then((response) => response.json());
 };
 
